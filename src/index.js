@@ -28,8 +28,11 @@ class App extends React.Component {
     return (
       <div>
         <SearchBar />
-        <VideoDetail video={this.state.selectedVideo}/>
-        <VideoList videos={this.state.videos} />
+        <VideoDetail video={this.state.selectedVideo} />
+        <VideoList
+          videos={this.state.videos}
+          onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+        />
       </div>
     )
   }
