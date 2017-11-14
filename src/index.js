@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
@@ -6,8 +7,6 @@ import VideoDetail from './components/video_detail/index.js';
 import VideoList from './components/video_list/index.js';
 
 let API_KEY = 'AIzaSyB3nRBM5KuOYW9q94ZVOd8redUcGSuAFKY';
-
-
 
 class App extends React.Component {
   constructor(props) {
@@ -31,9 +30,13 @@ class App extends React.Component {
   }
 
   render() {
+    const videoSearchDebounce = _.debounce(term => {
+      return this.videoSearch(term)
+    }, 1000);
+
     return (
       <div>
-        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+        <SearchBar onSearchTermChange={videoSearchDebounce} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
           videos={this.state.videos}
